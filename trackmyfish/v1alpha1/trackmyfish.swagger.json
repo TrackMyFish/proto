@@ -1,0 +1,249 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "TrackMyFish API",
+    "version": "1.0-alpha"
+  },
+  "tags": [
+    {
+      "name": "TrackMyFishService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1alpha1/fish": {
+      "get": {
+        "summary": "ListFish",
+        "description": "Lists Fish",
+        "operationId": "ListFish",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1ListFishResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "TrackMyFishService"
+        ]
+      },
+      "post": {
+        "summary": "AddFish",
+        "description": "Adds a new Fish",
+        "operationId": "AddFish",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1AddFishResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The fish to add",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1alpha1Fish"
+            }
+          }
+        ],
+        "tags": [
+          "TrackMyFishService"
+        ]
+      }
+    },
+    "/v1alpha1/fish/{id}": {
+      "delete": {
+        "summary": "DeleteFish",
+        "description": "Deletes a Fish",
+        "operationId": "DeleteFish",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1DeleteFishResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The unique identifier of the change.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TrackMyFishService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "FishGender": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "MALE",
+        "FEMALE"
+      ],
+      "default": "UNSPECIFIED"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1alpha1AddFishResponse": {
+      "type": "object",
+      "properties": {
+        "fish": {
+          "$ref": "#/definitions/v1alpha1Fish",
+          "title": "The added fish"
+        }
+      }
+    },
+    "v1alpha1DeleteFishResponse": {
+      "type": "object"
+    },
+    "v1alpha1Fish": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The unique identifier of the fish.",
+          "readOnly": true
+        },
+        "genus": {
+          "type": "string",
+          "title": "The genus of the fish",
+          "required": [
+            "genus"
+          ]
+        },
+        "species": {
+          "type": "string",
+          "title": "The species of the fish",
+          "required": [
+            "species"
+          ]
+        },
+        "common_name": {
+          "type": "string",
+          "title": "The common name of the fish"
+        },
+        "name": {
+          "type": "string",
+          "title": "The name of the fish"
+        },
+        "color": {
+          "type": "string",
+          "title": "The color of the fish"
+        },
+        "gender": {
+          "$ref": "#/definitions/FishGender",
+          "title": "The gender of the fish"
+        },
+        "purchase_date": {
+          "type": "string",
+          "title": "The date of purchase of the fish"
+        },
+        "ecosystem_name": {
+          "type": "string",
+          "title": "The fishs ecosystem name",
+          "readOnly": true
+        },
+        "ecosystem_type": {
+          "type": "string",
+          "title": "The fishs ecosystem type",
+          "readOnly": true
+        },
+        "ecosystem_location": {
+          "type": "string",
+          "title": "The fishs ecosystem location",
+          "readOnly": true
+        },
+        "salinity": {
+          "type": "string",
+          "title": "The fishs salinity",
+          "readOnly": true
+        },
+        "climate": {
+          "type": "string",
+          "title": "The fishs climate",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "genus",
+        "species"
+      ]
+    },
+    "v1alpha1ListFishResponse": {
+      "type": "object",
+      "properties": {
+        "fish": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1alpha1Fish"
+          },
+          "title": "The list of fish"
+        }
+      }
+    }
+  }
+}

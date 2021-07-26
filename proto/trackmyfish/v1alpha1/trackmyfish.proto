@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+package trackmyfish.v1alpha1;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/api/resource.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-validate/validate/validate.proto";
+
+option go_package = "github.com/trackmyfish/api/trackmyfish/v1alpha1;trackmyfishv1alpha1";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "TrackMyFish API";
+    version: "1.0-alpha";
+  };
+  consumes: "application/json";
+  produces: "application/json";
+};
+
+service TrackMyFishService {
+  // AddFish
+  //
+  // Adds a new Fish
+  rpc AddFish(AddFishRequest) returns (AddFishResponse) {
+    option (google.api.http) = {
+      post: "/v1alpha1/fish",
+      body: "fish"
+    };
+  };
+
+  // ListFish
+  //
+  // Lists Fish
+  rpc ListFish(ListFishRequest) returns (ListFishResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/fish"
+    };
+  };
+
+  // DeleteFish
+  //
+  // Deletes a Fish
+  rpc DeleteFish(DeleteFishRequest) returns (DeleteFishResponse) {
+    option (google.api.http) = {
+      delete: "/v1alpha1/fish/{id=*}"
+    };
+  };
+}
+
+message AddFishRequest {
+  // The fish to add
+  Fish fish = 1;
+}
+
+message AddFishResponse {
+  // The added fish
+  Fish fish = 1;
+}
+
+message ListFishRequest {}
+
+message ListFishResponse {
+  // The list of fish
+  repeated Fish fish = 1;
+}
+
+message DeleteFishRequest {
+  // The unique identifier of the change.
+  string id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "Fish"
+  ];
+}
+
+message DeleteFishResponse {}
+
+message Fish {
+  // The unique identifier of the fish.
+  int32 id = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The genus of the fish
+  string genus = 2 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The species of the fish
+  string species = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The common name of the fish
+  string common_name = 4 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  // The name of the fish
+  string name = 5 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  // The color of the fish
+  string color = 6 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  enum Gender {
+    UNSPECIFIED = 0;
+    MALE = 1;
+    FEMALE = 2;
+  }
+
+  // The gender of the fish
+  Gender gender = 7 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  // The date of purchase of the fish
+  string purchase_date = 8 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  // The fishs ecosystem name
+  string ecosystem_name = 9 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The fishs ecosystem type
+  string ecosystem_type = 10 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The fishs ecosystem location
+  string ecosystem_location = 11 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The fishs salinity
+  string salinity = 12 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The fishs climate
+  string climate = 13 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+}
