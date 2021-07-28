@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "TrackMyFish API",
-    "version": "1.0-alpha"
+    "version": "1.0-alpha1"
   },
   "tags": [
     {
@@ -31,7 +31,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/rpcStatus"
+              "$ref": "#/definitions/googlerpcStatus"
             }
           }
         },
@@ -53,7 +53,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/rpcStatus"
+              "$ref": "#/definitions/googlerpcStatus"
             }
           }
         },
@@ -88,7 +88,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/rpcStatus"
+              "$ref": "#/definitions/googlerpcStatus"
             }
           }
         },
@@ -98,9 +98,34 @@
             "description": "The unique identifier of the change.",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           }
         ],
+        "tags": [
+          "TrackMyFishService"
+        ]
+      }
+    },
+    "/v1alpha1/heartbeat": {
+      "get": {
+        "summary": "Heartbeat",
+        "description": "Provides information about the service health",
+        "operationId": "Heartbeat",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1HeartbeatResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
         "tags": [
           "TrackMyFishService"
         ]
@@ -117,19 +142,7 @@
       ],
       "default": "UNSPECIFIED"
     },
-    "protobufAny": {
-      "type": "object",
-      "properties": {
-        "type_url": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
-        }
-      }
-    },
-    "rpcStatus": {
+    "googlerpcStatus": {
       "type": "object",
       "properties": {
         "code": {
@@ -147,6 +160,18 @@
         }
       }
     },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
     "v1alpha1AddFishResponse": {
       "type": "object",
       "properties": {
@@ -157,7 +182,13 @@
       }
     },
     "v1alpha1DeleteFishResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "fish": {
+          "$ref": "#/definitions/v1alpha1Fish",
+          "title": "The deleted fish"
+        }
+      }
     },
     "v1alpha1Fish": {
       "type": "object",
@@ -232,6 +263,32 @@
         "genus",
         "species"
       ]
+    },
+    "v1alpha1HeartbeatResponse": {
+      "type": "object",
+      "properties": {
+        "fishbase": {
+          "$ref": "#/definitions/v1alpha1HeartbeatStatus"
+        }
+      }
+    },
+    "v1alpha1HeartbeatStatus": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1alpha1HeartbeatStatusStatus"
+        }
+      }
+    },
+    "v1alpha1HeartbeatStatusStatus": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "OPERATIONAL",
+        "DEGRADED",
+        "DOWN"
+      ],
+      "default": "UNSPECIFIED"
     },
     "v1alpha1ListFishResponse": {
       "type": "object",

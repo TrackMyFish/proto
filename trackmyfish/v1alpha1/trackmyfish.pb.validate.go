@@ -405,6 +405,16 @@ func (m *DeleteFishResponse) Validate() error {
 		return nil
 	}
 
+	if v, ok := interface{}(m.GetFish()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeleteFishResponseValidationError{
+				field:  "Fish",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -463,6 +473,215 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteFishResponseValidationError{}
+
+// Validate checks the field values on HeartbeatRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *HeartbeatRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// HeartbeatRequestValidationError is the validation error returned by
+// HeartbeatRequest.Validate if the designated constraints aren't met.
+type HeartbeatRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e HeartbeatRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e HeartbeatRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e HeartbeatRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e HeartbeatRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e HeartbeatRequestValidationError) ErrorName() string { return "HeartbeatRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e HeartbeatRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sHeartbeatRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = HeartbeatRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = HeartbeatRequestValidationError{}
+
+// Validate checks the field values on HeartbeatResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *HeartbeatResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetFishbase()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HeartbeatResponseValidationError{
+				field:  "Fishbase",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// HeartbeatResponseValidationError is the validation error returned by
+// HeartbeatResponse.Validate if the designated constraints aren't met.
+type HeartbeatResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e HeartbeatResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e HeartbeatResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e HeartbeatResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e HeartbeatResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e HeartbeatResponseValidationError) ErrorName() string {
+	return "HeartbeatResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e HeartbeatResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sHeartbeatResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = HeartbeatResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = HeartbeatResponseValidationError{}
+
+// Validate checks the field values on HeartbeatStatus with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *HeartbeatStatus) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Status
+
+	return nil
+}
+
+// HeartbeatStatusValidationError is the validation error returned by
+// HeartbeatStatus.Validate if the designated constraints aren't met.
+type HeartbeatStatusValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e HeartbeatStatusValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e HeartbeatStatusValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e HeartbeatStatusValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e HeartbeatStatusValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e HeartbeatStatusValidationError) ErrorName() string { return "HeartbeatStatusValidationError" }
+
+// Error satisfies the builtin error interface
+func (e HeartbeatStatusValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sHeartbeatStatus.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = HeartbeatStatusValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = HeartbeatStatusValidationError{}
 
 // Validate checks the field values on Fish with the rules defined in the proto
 // definition for this message. If any rules are violated, an error is returned.
