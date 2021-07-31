@@ -61,6 +61,9 @@ service TrackMyFishService {
 message AddFishRequest {
   // The fish to add
   Fish fish = 1;
+
+  // The number of fish matching this description
+  int32 count = 2;
 }
 
 message AddFishResponse {
