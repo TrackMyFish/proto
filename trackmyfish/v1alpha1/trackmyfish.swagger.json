@@ -66,6 +66,14 @@
             "schema": {
               "$ref": "#/definitions/v1alpha1Fish"
             }
+          },
+          {
+            "name": "count",
+            "description": "The number of fish matching this description.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [

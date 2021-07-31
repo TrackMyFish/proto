@@ -51,6 +51,8 @@ func (m *AddFishRequest) Validate() error {
 		}
 	}
 
+	// no validation rules for Count
+
 	return nil
 }
 
