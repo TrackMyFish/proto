@@ -62,8 +62,6 @@ message AddFishRequest {
   // The fish to add
   Fish fish = 1;
 
-  // The number of fish matching this description
-  int32 count = 2;
 }
 
 message AddFishResponse {
@@ -178,5 +176,10 @@ message Fish {
   // The fishs climate
   string climate = 13 [
     (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The number of fish matching this description
+  int32 count = 14 [
+    (google.api.field_behavior) = OPTIONAL
   ];
 }

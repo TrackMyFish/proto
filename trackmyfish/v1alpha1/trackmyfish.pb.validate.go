@@ -51,8 +51,6 @@ func (m *AddFishRequest) Validate() error {
 		}
 	}
 
-	// no validation rules for Count
-
 	return nil
 }
 
@@ -717,6 +715,8 @@ func (m *Fish) Validate() error {
 	// no validation rules for Salinity
 
 	// no validation rules for Climate
+
+	// no validation rules for Count
 
 	return nil
 }
