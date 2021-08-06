@@ -31,6 +31,24 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
+func request_TrackMyFishService_Heartbeat_0(ctx context.Context, marshaler runtime.Marshaler, client TrackMyFishServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq HeartbeatRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.Heartbeat(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TrackMyFishService_Heartbeat_0(ctx context.Context, marshaler runtime.Marshaler, server TrackMyFishServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq HeartbeatRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := server.Heartbeat(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 func request_TrackMyFishService_AddFish_0(ctx context.Context, marshaler runtime.Marshaler, client TrackMyFishServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AddFishRequest
 	var metadata runtime.ServerMetadata
@@ -135,20 +153,106 @@ func local_request_TrackMyFishService_DeleteFish_0(ctx context.Context, marshale
 
 }
 
-func request_TrackMyFishService_Heartbeat_0(ctx context.Context, marshaler runtime.Marshaler, client TrackMyFishServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq HeartbeatRequest
+func request_TrackMyFishService_AddTankStatistic_0(ctx context.Context, marshaler runtime.Marshaler, client TrackMyFishServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq AddTankStatisticRequest
 	var metadata runtime.ServerMetadata
 
-	msg, err := client.Heartbeat(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.TankStatistic); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.AddTankStatistic(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_TrackMyFishService_Heartbeat_0(ctx context.Context, marshaler runtime.Marshaler, server TrackMyFishServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq HeartbeatRequest
+func local_request_TrackMyFishService_AddTankStatistic_0(ctx context.Context, marshaler runtime.Marshaler, server TrackMyFishServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq AddTankStatisticRequest
 	var metadata runtime.ServerMetadata
 
-	msg, err := server.Heartbeat(ctx, &protoReq)
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.TankStatistic); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.AddTankStatistic(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_TrackMyFishService_ListTankStatistics_0(ctx context.Context, marshaler runtime.Marshaler, client TrackMyFishServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListTankStatisticsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.ListTankStatistics(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TrackMyFishService_ListTankStatistics_0(ctx context.Context, marshaler runtime.Marshaler, server TrackMyFishServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListTankStatisticsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := server.ListTankStatistics(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_TrackMyFishService_DeleteTankStatistic_0(ctx context.Context, marshaler runtime.Marshaler, client TrackMyFishServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteTankStatisticRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+	}
+
+	protoReq.Id, err = runtime.Int32(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+	}
+
+	msg, err := client.DeleteTankStatistic(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TrackMyFishService_DeleteTankStatistic_0(ctx context.Context, marshaler runtime.Marshaler, server TrackMyFishServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteTankStatisticRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+	}
+
+	protoReq.Id, err = runtime.Int32(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+	}
+
+	msg, err := server.DeleteTankStatistic(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -158,6 +262,29 @@ func local_request_TrackMyFishService_Heartbeat_0(ctx context.Context, marshaler
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterTrackMyFishServiceHandlerFromEndpoint instead.
 func RegisterTrackMyFishServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server TrackMyFishServiceServer) error {
+
+	mux.Handle("GET", pattern_TrackMyFishService_Heartbeat_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/trackmyfish.v1alpha1.TrackMyFishService/Heartbeat")
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TrackMyFishService_Heartbeat_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TrackMyFishService_Heartbeat_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
 
 	mux.Handle("POST", pattern_TrackMyFishService_AddFish_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
@@ -228,18 +355,18 @@ func RegisterTrackMyFishServiceHandlerServer(ctx context.Context, mux *runtime.S
 
 	})
 
-	mux.Handle("GET", pattern_TrackMyFishService_Heartbeat_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_TrackMyFishService_AddTankStatistic_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/trackmyfish.v1alpha1.TrackMyFishService/Heartbeat")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/trackmyfish.v1alpha1.TrackMyFishService/AddTankStatistic")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_TrackMyFishService_Heartbeat_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_TrackMyFishService_AddTankStatistic_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -247,7 +374,53 @@ func RegisterTrackMyFishServiceHandlerServer(ctx context.Context, mux *runtime.S
 			return
 		}
 
-		forward_TrackMyFishService_Heartbeat_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_TrackMyFishService_AddTankStatistic_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TrackMyFishService_ListTankStatistics_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/trackmyfish.v1alpha1.TrackMyFishService/ListTankStatistics")
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TrackMyFishService_ListTankStatistics_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TrackMyFishService_ListTankStatistics_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("DELETE", pattern_TrackMyFishService_DeleteTankStatistic_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/trackmyfish.v1alpha1.TrackMyFishService/DeleteTankStatistic")
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TrackMyFishService_DeleteTankStatistic_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TrackMyFishService_DeleteTankStatistic_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -291,6 +464,26 @@ func RegisterTrackMyFishServiceHandler(ctx context.Context, mux *runtime.ServeMu
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "TrackMyFishServiceClient" to call the correct interceptors.
 func RegisterTrackMyFishServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client TrackMyFishServiceClient) error {
+
+	mux.Handle("GET", pattern_TrackMyFishService_Heartbeat_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/trackmyfish.v1alpha1.TrackMyFishService/Heartbeat")
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TrackMyFishService_Heartbeat_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TrackMyFishService_Heartbeat_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
 
 	mux.Handle("POST", pattern_TrackMyFishService_AddFish_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
@@ -352,23 +545,63 @@ func RegisterTrackMyFishServiceHandlerClient(ctx context.Context, mux *runtime.S
 
 	})
 
-	mux.Handle("GET", pattern_TrackMyFishService_Heartbeat_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_TrackMyFishService_AddTankStatistic_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/trackmyfish.v1alpha1.TrackMyFishService/Heartbeat")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/trackmyfish.v1alpha1.TrackMyFishService/AddTankStatistic")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_TrackMyFishService_Heartbeat_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_TrackMyFishService_AddTankStatistic_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_TrackMyFishService_Heartbeat_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_TrackMyFishService_AddTankStatistic_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TrackMyFishService_ListTankStatistics_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/trackmyfish.v1alpha1.TrackMyFishService/ListTankStatistics")
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TrackMyFishService_ListTankStatistics_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TrackMyFishService_ListTankStatistics_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("DELETE", pattern_TrackMyFishService_DeleteTankStatistic_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/trackmyfish.v1alpha1.TrackMyFishService/DeleteTankStatistic")
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TrackMyFishService_DeleteTankStatistic_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TrackMyFishService_DeleteTankStatistic_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -376,21 +609,33 @@ func RegisterTrackMyFishServiceHandlerClient(ctx context.Context, mux *runtime.S
 }
 
 var (
+	pattern_TrackMyFishService_Heartbeat_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1alpha1", "heartbeat"}, ""))
+
 	pattern_TrackMyFishService_AddFish_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1alpha1", "fish"}, ""))
 
 	pattern_TrackMyFishService_ListFish_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1alpha1", "fish"}, ""))
 
 	pattern_TrackMyFishService_DeleteFish_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1alpha1", "fish", "id"}, ""))
 
-	pattern_TrackMyFishService_Heartbeat_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1alpha1", "heartbeat"}, ""))
+	pattern_TrackMyFishService_AddTankStatistic_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1alpha1", "tank", "statistics"}, ""))
+
+	pattern_TrackMyFishService_ListTankStatistics_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1alpha1", "tank", "statistics"}, ""))
+
+	pattern_TrackMyFishService_DeleteTankStatistic_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v1alpha1", "tank", "statistics", "id"}, ""))
 )
 
 var (
+	forward_TrackMyFishService_Heartbeat_0 = runtime.ForwardResponseMessage
+
 	forward_TrackMyFishService_AddFish_0 = runtime.ForwardResponseMessage
 
 	forward_TrackMyFishService_ListFish_0 = runtime.ForwardResponseMessage
 
 	forward_TrackMyFishService_DeleteFish_0 = runtime.ForwardResponseMessage
 
-	forward_TrackMyFishService_Heartbeat_0 = runtime.ForwardResponseMessage
+	forward_TrackMyFishService_AddTankStatistic_0 = runtime.ForwardResponseMessage
+
+	forward_TrackMyFishService_ListTankStatistics_0 = runtime.ForwardResponseMessage
+
+	forward_TrackMyFishService_DeleteTankStatistic_0 = runtime.ForwardResponseMessage
 )

@@ -17,6 +17,10 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TrackMyFishServiceClient interface {
+	// Heartbeat
+	//
+	// Provides information about the service health
+	Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error)
 	// AddFish
 	//
 	// Adds a new Fish
@@ -29,10 +33,18 @@ type TrackMyFishServiceClient interface {
 	//
 	// Deletes a Fish
 	DeleteFish(ctx context.Context, in *DeleteFishRequest, opts ...grpc.CallOption) (*DeleteFishResponse, error)
-	// Heartbeat
+	// AddTankStatistic
 	//
-	// Provides information about the service health
-	Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error)
+	// Adds a new tank statistic
+	AddTankStatistic(ctx context.Context, in *AddTankStatisticRequest, opts ...grpc.CallOption) (*AddTankStatisticResponse, error)
+	// ListTankStatistics
+	//
+	// Lists tank statistics
+	ListTankStatistics(ctx context.Context, in *ListTankStatisticsRequest, opts ...grpc.CallOption) (*ListTankStatisticsResponse, error)
+	// DeleteTankStatistic
+	//
+	// Deletes a tank statistic
+	DeleteTankStatistic(ctx context.Context, in *DeleteTankStatisticRequest, opts ...grpc.CallOption) (*DeleteTankStatisticResponse, error)
 }
 
 type trackMyFishServiceClient struct {
@@ -41,6 +53,15 @@ type trackMyFishServiceClient struct {
 
 func NewTrackMyFishServiceClient(cc grpc.ClientConnInterface) TrackMyFishServiceClient {
 	return &trackMyFishServiceClient{cc}
+}
+
+func (c *trackMyFishServiceClient) Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error) {
+	out := new(HeartbeatResponse)
+	err := c.cc.Invoke(ctx, "/trackmyfish.v1alpha1.TrackMyFishService/Heartbeat", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *trackMyFishServiceClient) AddFish(ctx context.Context, in *AddFishRequest, opts ...grpc.CallOption) (*AddFishResponse, error) {
@@ -70,9 +91,27 @@ func (c *trackMyFishServiceClient) DeleteFish(ctx context.Context, in *DeleteFis
 	return out, nil
 }
 
-func (c *trackMyFishServiceClient) Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error) {
-	out := new(HeartbeatResponse)
-	err := c.cc.Invoke(ctx, "/trackmyfish.v1alpha1.TrackMyFishService/Heartbeat", in, out, opts...)
+func (c *trackMyFishServiceClient) AddTankStatistic(ctx context.Context, in *AddTankStatisticRequest, opts ...grpc.CallOption) (*AddTankStatisticResponse, error) {
+	out := new(AddTankStatisticResponse)
+	err := c.cc.Invoke(ctx, "/trackmyfish.v1alpha1.TrackMyFishService/AddTankStatistic", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *trackMyFishServiceClient) ListTankStatistics(ctx context.Context, in *ListTankStatisticsRequest, opts ...grpc.CallOption) (*ListTankStatisticsResponse, error) {
+	out := new(ListTankStatisticsResponse)
+	err := c.cc.Invoke(ctx, "/trackmyfish.v1alpha1.TrackMyFishService/ListTankStatistics", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *trackMyFishServiceClient) DeleteTankStatistic(ctx context.Context, in *DeleteTankStatisticRequest, opts ...grpc.CallOption) (*DeleteTankStatisticResponse, error) {
+	out := new(DeleteTankStatisticResponse)
+	err := c.cc.Invoke(ctx, "/trackmyfish.v1alpha1.TrackMyFishService/DeleteTankStatistic", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -83,6 +122,10 @@ func (c *trackMyFishServiceClient) Heartbeat(ctx context.Context, in *HeartbeatR
 // All implementations should embed UnimplementedTrackMyFishServiceServer
 // for forward compatibility
 type TrackMyFishServiceServer interface {
+	// Heartbeat
+	//
+	// Provides information about the service health
+	Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error)
 	// AddFish
 	//
 	// Adds a new Fish
@@ -95,16 +138,27 @@ type TrackMyFishServiceServer interface {
 	//
 	// Deletes a Fish
 	DeleteFish(context.Context, *DeleteFishRequest) (*DeleteFishResponse, error)
-	// Heartbeat
+	// AddTankStatistic
 	//
-	// Provides information about the service health
-	Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error)
+	// Adds a new tank statistic
+	AddTankStatistic(context.Context, *AddTankStatisticRequest) (*AddTankStatisticResponse, error)
+	// ListTankStatistics
+	//
+	// Lists tank statistics
+	ListTankStatistics(context.Context, *ListTankStatisticsRequest) (*ListTankStatisticsResponse, error)
+	// DeleteTankStatistic
+	//
+	// Deletes a tank statistic
+	DeleteTankStatistic(context.Context, *DeleteTankStatisticRequest) (*DeleteTankStatisticResponse, error)
 }
 
 // UnimplementedTrackMyFishServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedTrackMyFishServiceServer struct {
 }
 
+func (UnimplementedTrackMyFishServiceServer) Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Heartbeat not implemented")
+}
 func (UnimplementedTrackMyFishServiceServer) AddFish(context.Context, *AddFishRequest) (*AddFishResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddFish not implemented")
 }
@@ -114,8 +168,14 @@ func (UnimplementedTrackMyFishServiceServer) ListFish(context.Context, *ListFish
 func (UnimplementedTrackMyFishServiceServer) DeleteFish(context.Context, *DeleteFishRequest) (*DeleteFishResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFish not implemented")
 }
-func (UnimplementedTrackMyFishServiceServer) Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Heartbeat not implemented")
+func (UnimplementedTrackMyFishServiceServer) AddTankStatistic(context.Context, *AddTankStatisticRequest) (*AddTankStatisticResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddTankStatistic not implemented")
+}
+func (UnimplementedTrackMyFishServiceServer) ListTankStatistics(context.Context, *ListTankStatisticsRequest) (*ListTankStatisticsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTankStatistics not implemented")
+}
+func (UnimplementedTrackMyFishServiceServer) DeleteTankStatistic(context.Context, *DeleteTankStatisticRequest) (*DeleteTankStatisticResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTankStatistic not implemented")
 }
 
 // UnsafeTrackMyFishServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -127,6 +187,24 @@ type UnsafeTrackMyFishServiceServer interface {
 
 func RegisterTrackMyFishServiceServer(s *grpc.Server, srv TrackMyFishServiceServer) {
 	s.RegisterService(&_TrackMyFishService_serviceDesc, srv)
+}
+
+func _TrackMyFishService_Heartbeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HeartbeatRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TrackMyFishServiceServer).Heartbeat(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/trackmyfish.v1alpha1.TrackMyFishService/Heartbeat",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TrackMyFishServiceServer).Heartbeat(ctx, req.(*HeartbeatRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _TrackMyFishService_AddFish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -183,20 +261,56 @@ func _TrackMyFishService_DeleteFish_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TrackMyFishService_Heartbeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HeartbeatRequest)
+func _TrackMyFishService_AddTankStatistic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTankStatisticRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TrackMyFishServiceServer).Heartbeat(ctx, in)
+		return srv.(TrackMyFishServiceServer).AddTankStatistic(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/trackmyfish.v1alpha1.TrackMyFishService/Heartbeat",
+		FullMethod: "/trackmyfish.v1alpha1.TrackMyFishService/AddTankStatistic",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TrackMyFishServiceServer).Heartbeat(ctx, req.(*HeartbeatRequest))
+		return srv.(TrackMyFishServiceServer).AddTankStatistic(ctx, req.(*AddTankStatisticRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TrackMyFishService_ListTankStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTankStatisticsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TrackMyFishServiceServer).ListTankStatistics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/trackmyfish.v1alpha1.TrackMyFishService/ListTankStatistics",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TrackMyFishServiceServer).ListTankStatistics(ctx, req.(*ListTankStatisticsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TrackMyFishService_DeleteTankStatistic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTankStatisticRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TrackMyFishServiceServer).DeleteTankStatistic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/trackmyfish.v1alpha1.TrackMyFishService/DeleteTankStatistic",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TrackMyFishServiceServer).DeleteTankStatistic(ctx, req.(*DeleteTankStatisticRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -205,6 +319,10 @@ var _TrackMyFishService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "trackmyfish.v1alpha1.TrackMyFishService",
 	HandlerType: (*TrackMyFishServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Heartbeat",
+			Handler:    _TrackMyFishService_Heartbeat_Handler,
+		},
 		{
 			MethodName: "AddFish",
 			Handler:    _TrackMyFishService_AddFish_Handler,
@@ -218,8 +336,16 @@ var _TrackMyFishService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _TrackMyFishService_DeleteFish_Handler,
 		},
 		{
-			MethodName: "Heartbeat",
-			Handler:    _TrackMyFishService_Heartbeat_Handler,
+			MethodName: "AddTankStatistic",
+			Handler:    _TrackMyFishService_AddTankStatistic_Handler,
+		},
+		{
+			MethodName: "ListTankStatistics",
+			Handler:    _TrackMyFishService_ListTankStatistics_Handler,
+		},
+		{
+			MethodName: "DeleteTankStatistic",
+			Handler:    _TrackMyFishService_DeleteTankStatistic_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
