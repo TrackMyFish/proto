@@ -33,6 +33,148 @@ var (
 	_ = anypb.Any{}
 )
 
+// Validate checks the field values on HeartbeatRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *HeartbeatRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// HeartbeatRequestValidationError is the validation error returned by
+// HeartbeatRequest.Validate if the designated constraints aren't met.
+type HeartbeatRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e HeartbeatRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e HeartbeatRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e HeartbeatRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e HeartbeatRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e HeartbeatRequestValidationError) ErrorName() string { return "HeartbeatRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e HeartbeatRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sHeartbeatRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = HeartbeatRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = HeartbeatRequestValidationError{}
+
+// Validate checks the field values on HeartbeatResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *HeartbeatResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetFishbase()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HeartbeatResponseValidationError{
+				field:  "Fishbase",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// HeartbeatResponseValidationError is the validation error returned by
+// HeartbeatResponse.Validate if the designated constraints aren't met.
+type HeartbeatResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e HeartbeatResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e HeartbeatResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e HeartbeatResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e HeartbeatResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e HeartbeatResponseValidationError) ErrorName() string {
+	return "HeartbeatResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e HeartbeatResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sHeartbeatResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = HeartbeatResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = HeartbeatResponseValidationError{}
+
 // Validate checks the field values on AddFishRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
@@ -474,83 +616,18 @@ var _ interface {
 	ErrorName() string
 } = DeleteFishResponseValidationError{}
 
-// Validate checks the field values on HeartbeatRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *HeartbeatRequest) Validate() error {
+// Validate checks the field values on AddTankStatisticRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AddTankStatisticRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	return nil
-}
-
-// HeartbeatRequestValidationError is the validation error returned by
-// HeartbeatRequest.Validate if the designated constraints aren't met.
-type HeartbeatRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e HeartbeatRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e HeartbeatRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e HeartbeatRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e HeartbeatRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e HeartbeatRequestValidationError) ErrorName() string { return "HeartbeatRequestValidationError" }
-
-// Error satisfies the builtin error interface
-func (e HeartbeatRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sHeartbeatRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = HeartbeatRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = HeartbeatRequestValidationError{}
-
-// Validate checks the field values on HeartbeatResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *HeartbeatResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetFishbase()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetTankStatistic()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return HeartbeatResponseValidationError{
-				field:  "Fishbase",
+			return AddTankStatisticRequestValidationError{
+				field:  "TankStatistic",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -560,9 +637,9 @@ func (m *HeartbeatResponse) Validate() error {
 	return nil
 }
 
-// HeartbeatResponseValidationError is the validation error returned by
-// HeartbeatResponse.Validate if the designated constraints aren't met.
-type HeartbeatResponseValidationError struct {
+// AddTankStatisticRequestValidationError is the validation error returned by
+// AddTankStatisticRequest.Validate if the designated constraints aren't met.
+type AddTankStatisticRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -570,24 +647,24 @@ type HeartbeatResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e HeartbeatResponseValidationError) Field() string { return e.field }
+func (e AddTankStatisticRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e HeartbeatResponseValidationError) Reason() string { return e.reason }
+func (e AddTankStatisticRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e HeartbeatResponseValidationError) Cause() error { return e.cause }
+func (e AddTankStatisticRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e HeartbeatResponseValidationError) Key() bool { return e.key }
+func (e AddTankStatisticRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e HeartbeatResponseValidationError) ErrorName() string {
-	return "HeartbeatResponseValidationError"
+func (e AddTankStatisticRequestValidationError) ErrorName() string {
+	return "AddTankStatisticRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e HeartbeatResponseValidationError) Error() string {
+func (e AddTankStatisticRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -599,14 +676,14 @@ func (e HeartbeatResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sHeartbeatResponse.%s: %s%s",
+		"invalid %sAddTankStatisticRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = HeartbeatResponseValidationError{}
+var _ error = AddTankStatisticRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -614,7 +691,380 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = HeartbeatResponseValidationError{}
+} = AddTankStatisticRequestValidationError{}
+
+// Validate checks the field values on AddTankStatisticResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AddTankStatisticResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetTankStatistic()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddTankStatisticResponseValidationError{
+				field:  "TankStatistic",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// AddTankStatisticResponseValidationError is the validation error returned by
+// AddTankStatisticResponse.Validate if the designated constraints aren't met.
+type AddTankStatisticResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddTankStatisticResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddTankStatisticResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddTankStatisticResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddTankStatisticResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddTankStatisticResponseValidationError) ErrorName() string {
+	return "AddTankStatisticResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddTankStatisticResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddTankStatisticResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddTankStatisticResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddTankStatisticResponseValidationError{}
+
+// Validate checks the field values on ListTankStatisticsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ListTankStatisticsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// ListTankStatisticsRequestValidationError is the validation error returned by
+// ListTankStatisticsRequest.Validate if the designated constraints aren't met.
+type ListTankStatisticsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListTankStatisticsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListTankStatisticsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListTankStatisticsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListTankStatisticsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListTankStatisticsRequestValidationError) ErrorName() string {
+	return "ListTankStatisticsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListTankStatisticsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListTankStatisticsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListTankStatisticsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListTankStatisticsRequestValidationError{}
+
+// Validate checks the field values on ListTankStatisticsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ListTankStatisticsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetTankStatistics() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListTankStatisticsResponseValidationError{
+					field:  fmt.Sprintf("TankStatistics[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ListTankStatisticsResponseValidationError is the validation error returned
+// by ListTankStatisticsResponse.Validate if the designated constraints aren't met.
+type ListTankStatisticsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListTankStatisticsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListTankStatisticsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListTankStatisticsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListTankStatisticsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListTankStatisticsResponseValidationError) ErrorName() string {
+	return "ListTankStatisticsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListTankStatisticsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListTankStatisticsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListTankStatisticsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListTankStatisticsResponseValidationError{}
+
+// Validate checks the field values on DeleteTankStatisticRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteTankStatisticRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// DeleteTankStatisticRequestValidationError is the validation error returned
+// by DeleteTankStatisticRequest.Validate if the designated constraints aren't met.
+type DeleteTankStatisticRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteTankStatisticRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteTankStatisticRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteTankStatisticRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteTankStatisticRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteTankStatisticRequestValidationError) ErrorName() string {
+	return "DeleteTankStatisticRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteTankStatisticRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteTankStatisticRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteTankStatisticRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteTankStatisticRequestValidationError{}
+
+// Validate checks the field values on DeleteTankStatisticResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteTankStatisticResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetTankStatistic()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeleteTankStatisticResponseValidationError{
+				field:  "TankStatistic",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// DeleteTankStatisticResponseValidationError is the validation error returned
+// by DeleteTankStatisticResponse.Validate if the designated constraints
+// aren't met.
+type DeleteTankStatisticResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteTankStatisticResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteTankStatisticResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteTankStatisticResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteTankStatisticResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteTankStatisticResponseValidationError) ErrorName() string {
+	return "DeleteTankStatisticResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteTankStatisticResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteTankStatisticResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteTankStatisticResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteTankStatisticResponseValidationError{}
 
 // Validate checks the field values on HeartbeatStatus with the rules defined
 // in the proto definition for this message. If any rules are violated, an
@@ -682,6 +1132,89 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = HeartbeatStatusValidationError{}
+
+// Validate checks the field values on TankStatistic with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *TankStatistic) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	// no validation rules for TestDate
+
+	// no validation rules for PH
+
+	// no validation rules for GH
+
+	// no validation rules for KH
+
+	// no validation rules for Ammonia
+
+	// no validation rules for Nitrite
+
+	// no validation rules for Nitrate
+
+	// no validation rules for Phosphate
+
+	return nil
+}
+
+// TankStatisticValidationError is the validation error returned by
+// TankStatistic.Validate if the designated constraints aren't met.
+type TankStatisticValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TankStatisticValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TankStatisticValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TankStatisticValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TankStatisticValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TankStatisticValidationError) ErrorName() string { return "TankStatisticValidationError" }
+
+// Error satisfies the builtin error interface
+func (e TankStatisticValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTankStatistic.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TankStatisticValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TankStatisticValidationError{}
 
 // Validate checks the field values on Fish with the rules defined in the proto
 // definition for this message. If any rules are violated, an error is returned.

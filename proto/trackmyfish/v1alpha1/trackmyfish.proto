@@ -20,6 +20,15 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service TrackMyFishService {
+  // Heartbeat
+  //
+  // Provides information about the service health
+  rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/heartbeat"
+    };
+  };
+
   // AddFish
   //
   // Adds a new Fish
@@ -48,15 +57,40 @@ service TrackMyFishService {
     };
   };
 
-  // Heartbeat
+  // AddTankStatistic
   //
-  // Provides information about the service health
-  rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse) {
+  // Adds a new tank statistic
+  rpc AddTankStatistic(AddTankStatisticRequest) returns (AddTankStatisticResponse) {
     option (google.api.http) = {
-      get: "/v1alpha1/heartbeat"
+      post: "/v1alpha1/tank/statistics",
+      body: "tank_statistic"
+    };
+  };
+
+  // ListTankStatistics
+  //
+  // Lists tank statistics
+  rpc ListTankStatistics(ListTankStatisticsRequest) returns (ListTankStatisticsResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/tank/statistics"
+    };
+  };
+
+  // DeleteTankStatistic
+  //
+  // Deletes a tank statistic
+  rpc DeleteTankStatistic(DeleteTankStatisticRequest) returns (DeleteTankStatisticResponse) {
+    option (google.api.http) = {
+      delete: "/v1alpha1/tank/statistics/{id=*}"
     };
   };
 }
+
+message HeartbeatRequest {};
+
+message HeartbeatResponse {
+  HeartbeatStatus fishbase = 1;
+};
 
 message AddFishRequest {
   // The fish to add
@@ -89,11 +123,35 @@ message DeleteFishResponse {
   Fish fish = 1;
 }
 
-message HeartbeatRequest {};
+message AddTankStatisticRequest {
+  // The tank statistic to add
+  TankStatistic tank_statistic = 1;
+}
 
-message HeartbeatResponse {
-  HeartbeatStatus fishbase = 1;
-};
+message AddTankStatisticResponse {
+  // The added tank statistic
+  TankStatistic tank_statistic = 1;
+}
+
+message ListTankStatisticsRequest {}
+
+message ListTankStatisticsResponse {
+  // The list of tank statistics
+  repeated TankStatistic tank_statistics = 1;
+}
+
+message DeleteTankStatisticRequest {
+  // The unique identifier of the change.
+  int32 id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "TankStatistic"
+  ];
+}
+
+message DeleteTankStatisticResponse {
+  // The deleted tank statistic
+  TankStatistic tank_statistic = 1;
+}
 
 message HeartbeatStatus {
   enum Status {
@@ -106,6 +164,47 @@ message HeartbeatStatus {
   Status status = 1;
 };
 
+message TankStatistic {
+  // The unique identifier of the tank statistic.
+  int32 id = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The date of tank test
+  string test_date = 2 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  // The pH level of the tank
+  float pH = 3 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  float gH = 4 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  float kH = 5 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  float ammonia = 6 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  float nitrite = 7 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  float nitrate = 8 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  float phosphate = 9 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+}
+
 message Fish {
   // The unique identifier of the fish.
   int32 id = 1 [
@@ -114,12 +213,12 @@ message Fish {
 
   // The genus of the fish
   string genus = 2 [
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = OPTIONAL
   ];
 
   // The species of the fish
   string species = 3 [
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = OPTIONAL
   ];
 
   // The common name of the fish
@@ -155,27 +254,27 @@ message Fish {
 
   // The fishs ecosystem name
   string ecosystem_name = 9 [
-    (google.api.field_behavior) = OUTPUT_ONLY
+    (google.api.field_behavior) = OPTIONAL
   ];
 
   // The fishs ecosystem type
   string ecosystem_type = 10 [
-    (google.api.field_behavior) = OUTPUT_ONLY
+    (google.api.field_behavior) = OPTIONAL
   ];
 
   // The fishs ecosystem location
   string ecosystem_location = 11 [
-    (google.api.field_behavior) = OUTPUT_ONLY
+    (google.api.field_behavior) = OPTIONAL
   ];
 
   // The fishs salinity
   string salinity = 12 [
-    (google.api.field_behavior) = OUTPUT_ONLY
+    (google.api.field_behavior) = OPTIONAL
   ];
 
   // The fishs climate
   string climate = 13 [
-    (google.api.field_behavior) = OUTPUT_ONLY
+    (google.api.field_behavior) = OPTIONAL
   ];
 
   // The number of fish matching this description
