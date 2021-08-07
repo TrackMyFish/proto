@@ -1145,11 +1145,11 @@ func (m *TankStatistic) Validate() error {
 
 	// no validation rules for TestDate
 
-	// no validation rules for PH
+	// no validation rules for Ph
 
-	// no validation rules for GH
+	// no validation rules for Gh
 
-	// no validation rules for KH
+	// no validation rules for Kh
 
 	// no validation rules for Ammonia
 
