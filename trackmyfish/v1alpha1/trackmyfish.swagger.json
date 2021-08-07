@@ -426,16 +426,16 @@
           "type": "string",
           "title": "The date of tank test"
         },
-        "pH": {
+        "ph": {
           "type": "number",
           "format": "float",
           "title": "The pH level of the tank"
         },
-        "gH": {
+        "gh": {
           "type": "number",
           "format": "float"
         },
-        "kH": {
+        "kh": {
           "type": "number",
           "format": "float"
         },

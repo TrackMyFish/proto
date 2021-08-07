@@ -176,15 +176,15 @@ message TankStatistic {
   ];
 
   // The pH level of the tank
-  float pH = 3 [
+  float ph = 3 [
     (google.api.field_behavior) = OPTIONAL
   ];
 
-  float gH = 4 [
+  float gh = 4 [
     (google.api.field_behavior) = OPTIONAL
   ];
 
-  float kH = 5 [
+  float kh = 5 [
     (google.api.field_behavior) = OPTIONAL
   ];
 
