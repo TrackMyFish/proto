@@ -176,33 +176,53 @@ message TankStatistic {
   ];
 
   // The pH level of the tank
-  float ph = 3 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
+  oneof optional_ph {
+    float ph = 3 [
+      (google.api.field_behavior) = OPTIONAL
+    ];
+  }
 
-  float gh = 4 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
+  // The GH level of the tank
+  oneof optional_gh {
+    float gh = 4 [
+      (google.api.field_behavior) = OPTIONAL
+    ];
+  }
 
-  float kh = 5 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
+  // The KH level of the tank
+  oneof optional_kh {
+    float kh = 5 [
+      (google.api.field_behavior) = OPTIONAL
+    ];
+  }
 
-  float ammonia = 6 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
+  // The Ammonia level of the tank
+  oneof optional_ammonia {
+    float ammonia = 6 [
+      (google.api.field_behavior) = OPTIONAL
+    ];
+  }
 
-  float nitrite = 7 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
+  // The Nitrite level of the tank
+  oneof optional_nitrite {
+    float nitrite = 7 [
+      (google.api.field_behavior) = OPTIONAL
+    ];
+  }
 
-  float nitrate = 8 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
+  // The Nitrate level of the tank
+  oneof optional_nitrate {
+    float nitrate = 8 [
+      (google.api.field_behavior) = OPTIONAL
+    ];
+  }
 
-  float phosphate = 9 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
+  // The Phosphate level of the tank
+  oneof optional_phosphate {
+    float phosphate = 9 [
+      (google.api.field_behavior) = OPTIONAL
+    ];
+  }
 }
 
 message Fish {

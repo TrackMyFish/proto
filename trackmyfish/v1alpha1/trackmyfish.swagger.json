@@ -428,8 +428,7 @@
         },
         "ph": {
           "type": "number",
-          "format": "float",
-          "title": "The pH level of the tank"
+          "format": "float"
         },
         "gh": {
           "type": "number",
