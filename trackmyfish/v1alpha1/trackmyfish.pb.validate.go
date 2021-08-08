@@ -1145,19 +1145,54 @@ func (m *TankStatistic) Validate() error {
 
 	// no validation rules for TestDate
 
-	// no validation rules for Ph
+	switch m.OptionalPh.(type) {
 
-	// no validation rules for Gh
+	case *TankStatistic_Ph:
+		// no validation rules for Ph
 
-	// no validation rules for Kh
+	}
 
-	// no validation rules for Ammonia
+	switch m.OptionalGh.(type) {
 
-	// no validation rules for Nitrite
+	case *TankStatistic_Gh:
+		// no validation rules for Gh
 
-	// no validation rules for Nitrate
+	}
 
-	// no validation rules for Phosphate
+	switch m.OptionalKh.(type) {
+
+	case *TankStatistic_Kh:
+		// no validation rules for Kh
+
+	}
+
+	switch m.OptionalAmmonia.(type) {
+
+	case *TankStatistic_Ammonia:
+		// no validation rules for Ammonia
+
+	}
+
+	switch m.OptionalNitrite.(type) {
+
+	case *TankStatistic_Nitrite:
+		// no validation rules for Nitrite
+
+	}
+
+	switch m.OptionalNitrate.(type) {
+
+	case *TankStatistic_Nitrate:
+		// no validation rules for Nitrate
+
+	}
+
+	switch m.OptionalPhosphate.(type) {
+
+	case *TankStatistic_Phosphate:
+		// no validation rules for Phosphate
+
+	}
 
 	return nil
 }
