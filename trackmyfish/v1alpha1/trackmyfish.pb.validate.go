@@ -106,16 +106,6 @@ func (m *HeartbeatResponse) Validate() error {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetFishbase()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return HeartbeatResponseValidationError{
-				field:  "Fishbase",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	return nil
 }
 
@@ -1260,29 +1250,15 @@ func (m *Fish) Validate() error {
 
 	// no validation rules for Id
 
-	// no validation rules for Genus
+	// no validation rules for Type
 
-	// no validation rules for Species
-
-	// no validation rules for CommonName
-
-	// no validation rules for Name
+	// no validation rules for Subtype
 
 	// no validation rules for Color
 
 	// no validation rules for Gender
 
 	// no validation rules for PurchaseDate
-
-	// no validation rules for EcosystemName
-
-	// no validation rules for EcosystemType
-
-	// no validation rules for EcosystemLocation
-
-	// no validation rules for Salinity
-
-	// no validation rules for Climate
 
 	// no validation rules for Count
 

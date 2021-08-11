@@ -308,21 +308,15 @@
           "description": "The unique identifier of the fish.",
           "readOnly": true
         },
-        "genus": {
+        "type": {
           "type": "string",
-          "title": "The genus of the fish"
+          "title": "The type of the fish (e.g. Gourami)",
+          "readOnly": true
         },
-        "species": {
+        "subtype": {
           "type": "string",
-          "title": "The species of the fish"
-        },
-        "common_name": {
-          "type": "string",
-          "title": "The common name of the fish"
-        },
-        "name": {
-          "type": "string",
-          "title": "The name of the fish"
+          "title": "The subtype of the fish (e.g. Pearl)",
+          "readOnly": true
         },
         "color": {
           "type": "string",
@@ -336,26 +330,6 @@
           "type": "string",
           "title": "The date of purchase of the fish"
         },
-        "ecosystem_name": {
-          "type": "string",
-          "title": "The fishs ecosystem name"
-        },
-        "ecosystem_type": {
-          "type": "string",
-          "title": "The fishs ecosystem type"
-        },
-        "ecosystem_location": {
-          "type": "string",
-          "title": "The fishs ecosystem location"
-        },
-        "salinity": {
-          "type": "string",
-          "title": "The fishs salinity"
-        },
-        "climate": {
-          "type": "string",
-          "title": "The fishs climate"
-        },
         "count": {
           "type": "integer",
           "format": "int32",
@@ -364,30 +338,7 @@
       }
     },
     "v1alpha1HeartbeatResponse": {
-      "type": "object",
-      "properties": {
-        "fishbase": {
-          "$ref": "#/definitions/v1alpha1HeartbeatStatus"
-        }
-      }
-    },
-    "v1alpha1HeartbeatStatus": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1alpha1HeartbeatStatusStatus"
-        }
-      }
-    },
-    "v1alpha1HeartbeatStatusStatus": {
-      "type": "string",
-      "enum": [
-        "UNSPECIFIED",
-        "OPERATIONAL",
-        "DEGRADED",
-        "DOWN"
-      ],
-      "default": "UNSPECIFIED"
+      "type": "object"
     },
     "v1alpha1ListFishResponse": {
       "type": "object",
