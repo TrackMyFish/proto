@@ -88,9 +88,7 @@ service TrackMyFishService {
 
 message HeartbeatRequest {};
 
-message HeartbeatResponse {
-  HeartbeatStatus fishbase = 1;
-};
+message HeartbeatResponse {};
 
 message AddFishRequest {
   // The fish to add
@@ -231,28 +229,18 @@ message Fish {
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
 
-  // The genus of the fish
-  string genus = 2 [
-    (google.api.field_behavior) = OPTIONAL
+  // The type of the fish (e.g. Gourami)
+  string type = 2 [
+    (google.api.field_behavior) = OUTPUT_ONLY
   ];
 
-  // The species of the fish
-  string species = 3 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
-
-  // The common name of the fish
-  string common_name = 4 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
-
-  // The name of the fish
-  string name = 5 [
-    (google.api.field_behavior) = OPTIONAL
+  // The subtype of the fish (e.g. Pearl)
+  string subtype = 3 [
+    (google.api.field_behavior) = OUTPUT_ONLY
   ];
 
   // The color of the fish
-  string color = 6 [
+  string color = 4 [
     (google.api.field_behavior) = OPTIONAL
   ];
 
@@ -263,42 +251,17 @@ message Fish {
   }
 
   // The gender of the fish
-  Gender gender = 7 [
+  Gender gender = 5 [
     (google.api.field_behavior) = OPTIONAL
   ];
 
   // The date of purchase of the fish
-  string purchase_date = 8 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
-
-  // The fishs ecosystem name
-  string ecosystem_name = 9 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
-
-  // The fishs ecosystem type
-  string ecosystem_type = 10 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
-
-  // The fishs ecosystem location
-  string ecosystem_location = 11 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
-
-  // The fishs salinity
-  string salinity = 12 [
-    (google.api.field_behavior) = OPTIONAL
-  ];
-
-  // The fishs climate
-  string climate = 13 [
+  string purchase_date = 6 [
     (google.api.field_behavior) = OPTIONAL
   ];
 
   // The number of fish matching this description
-  int32 count = 14 [
+  int32 count = 7 [
     (google.api.field_behavior) = OPTIONAL
   ];
 }
