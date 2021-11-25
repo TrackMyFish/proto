@@ -45,6 +45,18 @@ type TrackMyFishServiceClient interface {
 	//
 	// Deletes a tank statistic
 	DeleteTankStatistic(ctx context.Context, in *DeleteTankStatisticRequest, opts ...grpc.CallOption) (*DeleteTankStatisticResponse, error)
+	// AddTank
+	//
+	// Adds a new tank
+	AddTank(ctx context.Context, in *AddTankRequest, opts ...grpc.CallOption) (*AddTankResponse, error)
+	// ListTanks
+	//
+	// Lists tanks
+	ListTanks(ctx context.Context, in *ListTanksRequest, opts ...grpc.CallOption) (*ListTanksResponse, error)
+	// DeleteTank
+	//
+	// Deletes a tank
+	DeleteTank(ctx context.Context, in *DeleteTankRequest, opts ...grpc.CallOption) (*DeleteTankResponse, error)
 }
 
 type trackMyFishServiceClient struct {
@@ -118,6 +130,33 @@ func (c *trackMyFishServiceClient) DeleteTankStatistic(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *trackMyFishServiceClient) AddTank(ctx context.Context, in *AddTankRequest, opts ...grpc.CallOption) (*AddTankResponse, error) {
+	out := new(AddTankResponse)
+	err := c.cc.Invoke(ctx, "/trackmyfish.v1alpha1.TrackMyFishService/AddTank", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *trackMyFishServiceClient) ListTanks(ctx context.Context, in *ListTanksRequest, opts ...grpc.CallOption) (*ListTanksResponse, error) {
+	out := new(ListTanksResponse)
+	err := c.cc.Invoke(ctx, "/trackmyfish.v1alpha1.TrackMyFishService/ListTanks", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *trackMyFishServiceClient) DeleteTank(ctx context.Context, in *DeleteTankRequest, opts ...grpc.CallOption) (*DeleteTankResponse, error) {
+	out := new(DeleteTankResponse)
+	err := c.cc.Invoke(ctx, "/trackmyfish.v1alpha1.TrackMyFishService/DeleteTank", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TrackMyFishServiceServer is the server API for TrackMyFishService service.
 // All implementations should embed UnimplementedTrackMyFishServiceServer
 // for forward compatibility
@@ -150,6 +189,18 @@ type TrackMyFishServiceServer interface {
 	//
 	// Deletes a tank statistic
 	DeleteTankStatistic(context.Context, *DeleteTankStatisticRequest) (*DeleteTankStatisticResponse, error)
+	// AddTank
+	//
+	// Adds a new tank
+	AddTank(context.Context, *AddTankRequest) (*AddTankResponse, error)
+	// ListTanks
+	//
+	// Lists tanks
+	ListTanks(context.Context, *ListTanksRequest) (*ListTanksResponse, error)
+	// DeleteTank
+	//
+	// Deletes a tank
+	DeleteTank(context.Context, *DeleteTankRequest) (*DeleteTankResponse, error)
 }
 
 // UnimplementedTrackMyFishServiceServer should be embedded to have forward compatible implementations.
@@ -176,6 +227,15 @@ func (UnimplementedTrackMyFishServiceServer) ListTankStatistics(context.Context,
 }
 func (UnimplementedTrackMyFishServiceServer) DeleteTankStatistic(context.Context, *DeleteTankStatisticRequest) (*DeleteTankStatisticResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTankStatistic not implemented")
+}
+func (UnimplementedTrackMyFishServiceServer) AddTank(context.Context, *AddTankRequest) (*AddTankResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddTank not implemented")
+}
+func (UnimplementedTrackMyFishServiceServer) ListTanks(context.Context, *ListTanksRequest) (*ListTanksResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTanks not implemented")
+}
+func (UnimplementedTrackMyFishServiceServer) DeleteTank(context.Context, *DeleteTankRequest) (*DeleteTankResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTank not implemented")
 }
 
 // UnsafeTrackMyFishServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -315,6 +375,60 @@ func _TrackMyFishService_DeleteTankStatistic_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TrackMyFishService_AddTank_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTankRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TrackMyFishServiceServer).AddTank(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/trackmyfish.v1alpha1.TrackMyFishService/AddTank",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TrackMyFishServiceServer).AddTank(ctx, req.(*AddTankRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TrackMyFishService_ListTanks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTanksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TrackMyFishServiceServer).ListTanks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/trackmyfish.v1alpha1.TrackMyFishService/ListTanks",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TrackMyFishServiceServer).ListTanks(ctx, req.(*ListTanksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TrackMyFishService_DeleteTank_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTankRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TrackMyFishServiceServer).DeleteTank(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/trackmyfish.v1alpha1.TrackMyFishService/DeleteTank",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TrackMyFishServiceServer).DeleteTank(ctx, req.(*DeleteTankRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _TrackMyFishService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "trackmyfish.v1alpha1.TrackMyFishService",
 	HandlerType: (*TrackMyFishServiceServer)(nil),
@@ -346,6 +460,18 @@ var _TrackMyFishService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteTankStatistic",
 			Handler:    _TrackMyFishService_DeleteTankStatistic_Handler,
+		},
+		{
+			MethodName: "AddTank",
+			Handler:    _TrackMyFishService_AddTank_Handler,
+		},
+		{
+			MethodName: "ListTanks",
+			Handler:    _TrackMyFishService_ListTanks_Handler,
+		},
+		{
+			MethodName: "DeleteTank",
+			Handler:    _TrackMyFishService_DeleteTank_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

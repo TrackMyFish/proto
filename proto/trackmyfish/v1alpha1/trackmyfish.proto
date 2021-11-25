@@ -84,6 +84,34 @@ service TrackMyFishService {
       delete: "/v1alpha1/tank/statistics/{id=*}"
     };
   };
+
+  // AddTank
+  //
+  // Adds a new tank
+  rpc AddTank(AddTankRequest) returns (AddTankResponse) {
+    option (google.api.http) = {
+      post: "/v1alpha1/tank",
+      body: "tank"
+    };
+  };
+
+  // ListTanks
+  //
+  // Lists tanks
+  rpc ListTanks(ListTanksRequest) returns (ListTanksResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/tank"
+    };
+  };
+
+  // DeleteTank
+  //
+  // Deletes a tank
+  rpc DeleteTank(DeleteTankRequest) returns (DeleteTankResponse) {
+    option (google.api.http) = {
+      delete: "/v1alpha1/tank/{id=*}"
+    };
+  };
 }
 
 message HeartbeatRequest {};
@@ -149,6 +177,36 @@ message DeleteTankStatisticRequest {
 message DeleteTankStatisticResponse {
   // The deleted tank statistic
   TankStatistic tank_statistic = 1;
+}
+
+message AddTankRequest {
+  // The tank to add
+  Tank tank = 1;
+}
+
+message AddTankResponse {
+  // The added tank
+  Tank tank = 1;
+}
+
+message ListTanksRequest {}
+
+message ListTanksResponse {
+  // The list of tanks
+  repeated Tank tanks = 1;
+}
+
+message DeleteTankRequest {
+  // The unique identifier of the change.
+  int32 id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "Tank"
+  ];
+}
+
+message DeleteTankResponse {
+  // The deleted tank
+  Tank tank = 1;
 }
 
 message HeartbeatStatus {
@@ -221,6 +279,57 @@ message TankStatistic {
       (google.api.field_behavior) = OPTIONAL
     ];
   }
+}
+
+message Tank {
+  // The unique identifier of the tank
+  int32 id = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The make of the tank
+  string make = 2 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  // The model of the tank
+  string model = 3 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  // The name of the tank
+  string name = 4 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  // The location of the tank
+  string location = 5 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  enum CapacityMeasurement {
+    UNSPECIFIED = 0;
+    LITRES = 1;
+    GALLONS = 2;
+  }
+
+  // The capacity measurement of the tank
+  CapacityMeasurement capacity_measurement = 6 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
+  // The capacity of the tank
+  oneof optional_capacity {
+    float capacity = 7 [
+      (google.api.field_behavior) = OPTIONAL
+    ];
+  }
+
+  // The capacity of the tank
+  string description = 8 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
+
 }
 
 message Fish {

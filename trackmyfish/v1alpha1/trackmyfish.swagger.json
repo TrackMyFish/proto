@@ -131,6 +131,63 @@
         ]
       }
     },
+    "/v1alpha1/tank": {
+      "get": {
+        "summary": "ListTanks",
+        "description": "Lists tanks",
+        "operationId": "ListTanks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1ListTanksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "TrackMyFishService"
+        ]
+      },
+      "post": {
+        "summary": "AddTank",
+        "description": "Adds a new tank",
+        "operationId": "AddTank",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1AddTankResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The tank to add",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1alpha1Tank"
+            }
+          }
+        ],
+        "tags": [
+          "TrackMyFishService"
+        ]
+      }
+    },
     "/v1alpha1/tank/statistics": {
       "get": {
         "summary": "ListTankStatistics",
@@ -221,6 +278,40 @@
           "TrackMyFishService"
         ]
       }
+    },
+    "/v1alpha1/tank/{id}": {
+      "delete": {
+        "summary": "DeleteTank",
+        "description": "Deletes a tank",
+        "operationId": "DeleteTank",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1DeleteTankResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The unique identifier of the change.",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "TrackMyFishService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -230,6 +321,15 @@
         "UNSPECIFIED",
         "MALE",
         "FEMALE"
+      ],
+      "default": "UNSPECIFIED"
+    },
+    "TankCapacityMeasurement": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "LITRES",
+        "GALLONS"
       ],
       "default": "UNSPECIFIED"
     },
@@ -272,6 +372,15 @@
         }
       }
     },
+    "v1alpha1AddTankResponse": {
+      "type": "object",
+      "properties": {
+        "tank": {
+          "$ref": "#/definitions/v1alpha1Tank",
+          "title": "The added tank"
+        }
+      }
+    },
     "v1alpha1AddTankStatisticResponse": {
       "type": "object",
       "properties": {
@@ -287,6 +396,15 @@
         "fish": {
           "$ref": "#/definitions/v1alpha1Fish",
           "title": "The deleted fish"
+        }
+      }
+    },
+    "v1alpha1DeleteTankResponse": {
+      "type": "object",
+      "properties": {
+        "tank": {
+          "$ref": "#/definitions/v1alpha1Tank",
+          "title": "The deleted tank"
         }
       }
     },
@@ -361,6 +479,57 @@
             "$ref": "#/definitions/v1alpha1TankStatistic"
           },
           "title": "The list of tank statistics"
+        }
+      }
+    },
+    "v1alpha1ListTanksResponse": {
+      "type": "object",
+      "properties": {
+        "tanks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1alpha1Tank"
+          },
+          "title": "The list of tanks"
+        }
+      }
+    },
+    "v1alpha1Tank": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The unique identifier of the tank",
+          "readOnly": true
+        },
+        "make": {
+          "type": "string",
+          "title": "The make of the tank"
+        },
+        "model": {
+          "type": "string",
+          "title": "The model of the tank"
+        },
+        "name": {
+          "type": "string",
+          "title": "The name of the tank"
+        },
+        "location": {
+          "type": "string",
+          "title": "The location of the tank"
+        },
+        "capacity_measurement": {
+          "$ref": "#/definitions/TankCapacityMeasurement",
+          "title": "The capacity measurement of the tank"
+        },
+        "capacity": {
+          "type": "number",
+          "format": "float"
+        },
+        "description": {
+          "type": "string",
+          "title": "The capacity of the tank"
         }
       }
     },
