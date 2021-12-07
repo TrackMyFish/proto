@@ -131,63 +131,6 @@
         ]
       }
     },
-    "/v1alpha1/tank": {
-      "get": {
-        "summary": "ListTanks",
-        "description": "Lists tanks",
-        "operationId": "ListTanks",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1alpha1ListTanksResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "TrackMyFishService"
-        ]
-      },
-      "post": {
-        "summary": "AddTank",
-        "description": "Adds a new tank",
-        "operationId": "AddTank",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1alpha1AddTankResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "The tank to add",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1alpha1Tank"
-            }
-          }
-        ],
-        "tags": [
-          "TrackMyFishService"
-        ]
-      }
-    },
     "/v1alpha1/tank/statistics": {
       "get": {
         "summary": "ListTankStatistics",
@@ -279,7 +222,64 @@
         ]
       }
     },
-    "/v1alpha1/tank/{id}": {
+    "/v1alpha1/tanks": {
+      "get": {
+        "summary": "ListTanks",
+        "description": "Lists tanks",
+        "operationId": "ListTanks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1ListTanksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "TrackMyFishService"
+        ]
+      },
+      "post": {
+        "summary": "AddTank",
+        "description": "Adds a new tank",
+        "operationId": "AddTank",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1AddTankResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The tank to add",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1alpha1Tank"
+            }
+          }
+        ],
+        "tags": [
+          "TrackMyFishService"
+        ]
+      }
+    },
+    "/v1alpha1/tanks/{id}": {
       "delete": {
         "summary": "DeleteTank",
         "description": "Deletes a tank",

@@ -90,7 +90,7 @@ service TrackMyFishService {
   // Adds a new tank
   rpc AddTank(AddTankRequest) returns (AddTankResponse) {
     option (google.api.http) = {
-      post: "/v1alpha1/tank",
+      post: "/v1alpha1/tanks",
       body: "tank"
     };
   };
@@ -100,7 +100,7 @@ service TrackMyFishService {
   // Lists tanks
   rpc ListTanks(ListTanksRequest) returns (ListTanksResponse) {
     option (google.api.http) = {
-      get: "/v1alpha1/tank"
+      get: "/v1alpha1/tanks"
     };
   };
 
@@ -109,7 +109,7 @@ service TrackMyFishService {
   // Deletes a tank
   rpc DeleteTank(DeleteTankRequest) returns (DeleteTankResponse) {
     option (google.api.http) = {
-      delete: "/v1alpha1/tank/{id=*}"
+      delete: "/v1alpha1/tanks/{id=*}"
     };
   };
 }
